@@ -7,6 +7,8 @@ We are given list price of a stock for N days, find the stock span of each day. 
 For ex. for P = {11, 9, 7, 5, 4, 6, 8, 10, 7, 9} the span is S = {1, 1, 1, 1, 1, 3, 5, 7, 1, 2}
 */
 public class StockSpan {
+
+    /*Tried with 2 stacks but it did not work as expected*/
     private int[] calculateSpan(int[] arr){
         int[] spans = new int[arr.length];
         spans[0] = 1;
@@ -33,13 +35,38 @@ public class StockSpan {
         return spans;
     }
 
+/*
+O(N) approach:
+we need to maintain the stack indexes in the descending order of stock prices.
+if the ith element is grater than the top element of the stack, pop it until we reach grater element index in stack
+if the stack is empty, span will be ith +1 otherwise i-top of the stack.
+ */
+
+    private int[] calcSpan(int[] arr){
+        Stack<Integer> stack = new Stack<>();
+        int[] span = new int[arr.length];
+        span[0] = 1;
+        stack.push(0); // Push first element index into stack.
+        for(int i = 1; i<arr.length;i++){
+            while(!stack.isEmpty() && arr[i]>=arr[stack.peek()]){
+                stack.pop();
+            }
+            if(stack.isEmpty()){ // All the elements are lesser than given day price.
+                span[i] = i+1;
+            }else {
+                span[i] = i - stack.peek ();
+            }
+            stack.push(i);
+        }
+        return span;
+    }
+
 
     public static void main(String[] args) {
     int[] prices ={11, 9, 7, 5, 4, 6, 8, 10, 7, 9};
-    int[] span = new StockSpan().calculateSpan(prices);
+    int[] span = new StockSpan().calcSpan(prices);
     for(int i = 0; i<span.length;i++){
         System.out.print(span[i]);
     }
-
     }
 }
