@@ -20,31 +20,37 @@ Output: [0,0,9,0,0]
 */
 public class ProductOfArray {
     private int[] productExceptSelf(int[] nums){
-        int prefixProduct = 1, suffixProduct = 1;
-        int[] prArray = new int[nums.length];
-        for(int i = 0; i < nums.length;i++){
-            int j = i+1;
-            while(j<nums.length){
-                suffixProduct = suffixProduct * nums[j]; // suffix product will be right side elements product
-                j++;
-            }
-            int k  =  i-1;
-            while(k>=0) {
-                prefixProduct = prefixProduct * nums[k]; // left side elements product
-                k--;
-            }
-            prArray[i] = prefixProduct*suffixProduct;
-            suffixProduct = prefixProduct = 1;
+        int[] result = new int[nums.length];
+        int[] prefixArray = new int[nums.length];
+        int[] suffixArray = new int[nums.length];
+        int product = 1;
+        prefixArray[0] = 1;
+        for(int i = 1; i<nums.length;i++){
+            product = product * nums[i-1];
+            prefixArray[i] = product;
         }
-        return prArray;
+        product = 1;
+        suffixArray[nums.length-1] = 1;
+        for(int i = nums.length-1; i>=0;i--){
+            if( i  == nums.length-1){
+                suffixArray[nums.length-1] = 1;
+                product = 1;
+            }else {
+                product = product * nums[i + 1];
+                suffixArray[i] = product;
+            }
+            result[i] = suffixArray[i]*prefixArray[i] ;
+
+        }
+        return result;
     }
 
 
     public static void main(String[] args) {
-        int[] nums = {3,5,2,4};
+        int[] nums = {1,2,3,4};
         ProductOfArray productOfArray = new ProductOfArray();
-        int[] ints = productOfArray.productExceptSelf (nums);
-        for(Integer num:ints){
+        int[] products = productOfArray.productExceptSelf (nums);
+        for(Integer num:products){
             System.out.println (num);
         }
     }
