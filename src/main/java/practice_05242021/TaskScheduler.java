@@ -70,14 +70,14 @@ public class TaskScheduler {
             }
 
         }
-        if (idleIndexList.isEmpty ()) return tasks.length;
+       if (idleIndexList.isEmpty ()) return tasks.length;
         return scheduleList.size ();
     }
 
     public static void main(String[] args) {
-        char[] tasks = {'A', 'B', 'C', 'D', 'E', 'A', 'B', 'C', 'D', 'E'};
+        char[] tasks = {'A', 'A', 'A', 'A', 'A', 'A', 'B', 'C', 'D', 'E','F','G'};
         TaskScheduler taskScheduler = new TaskScheduler ();
-        System.out.println (taskScheduler.leastInterval (tasks, 4));
+        System.out.println (taskScheduler.leastInterval (tasks, 2));
 
     }
 }
