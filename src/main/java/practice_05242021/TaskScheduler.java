@@ -37,6 +37,16 @@ public class TaskScheduler {
     /* Approach: if the current element and previous element are same, put I (idleIndex) as filler for n times
      * whenever different element comes, first will try to fill it with idleIndexes
      * and then will schedule remaining ones.
+     * Steps are
+     * 1. scheduleList --> maintain list of tasks including idle time
+     * 2. idleIndexList --> maintain list of idle indexes
+     * 3. insert first task into scheduleList
+     * 4. iterate through the tasks input array and check if the scheduleList and task array has same element,
+     * if yes then insert n number of 'I's and insert input element into scheduleList and idleIndexList
+     * repeat this process until you come across an element which is different from scheduleList
+     * 5. if the element is different, start replacing the elements in ScheduleList which is marked as 'I' with this element
+     * by using idleIndexList.
+     *
      * */
 
     public int leastInterval(char[] tasks, int n) {
@@ -45,7 +55,7 @@ public class TaskScheduler {
         if (n == 0) {
             return tasks.length;
         }
-        scheduleList.add (0, tasks[0]);
+        scheduleList.add(0, tasks[0]);
         for (int i = 1; i < tasks.length; i++) {
             if (tasks[i] == scheduleList.get (scheduleList.size () - 1)) {
                 int idle = scheduleList.size ();
