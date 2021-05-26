@@ -56,25 +56,27 @@ public class TaskScheduler {
             return tasks.length;
         }
         scheduleList.add(0, tasks[0]);
+        // populating scheduleList
         for (int i = 1; i < tasks.length; i++) {
-            if (tasks[i] == scheduleList.get (scheduleList.size () - 1)) {
+            if (tasks[i] == scheduleList.get (scheduleList.size () - 1)) { // if similar task found like A A
                 int idle = scheduleList.size ();
-                for (int j = idle; j < (idle + n); j++) {
+                for (int j = idle; j < (idle + n); j++) { // Fill it as A I I
                     scheduleList.add (j, 'I');
                     idleIndexList.add (j);
                 }
-                scheduleList.add (tasks[i]);
-            } else {
+                scheduleList.add (tasks[i]);// add the A after appending Idle Task (I)  A II  A
+            } else { // if different task found
+                // not able to adjust input element in Idle Place, so add it to the end of scheduleList
                 if (!idleIndexList.isEmpty () && (idleIndexList.get (idleIndexList.size () - 1) == i)) {
                     scheduleList.add (tasks[i]);
                 } else {
                     if (!idleIndexList.isEmpty ()) {
-                        int idleIndex = idleIndexList.get (0);
+                        int idleIndex = idleIndexList.get (0); // get the first available idle index
                         if (idleIndex != -1 && scheduleList.get (idleIndex - 1) == tasks[i]) {
-                            idleIndex = idleIndexList.get (1);
+                            idleIndex = idleIndexList.get (1); // if the fist available idle index cant accommodate,then get next available idle index
                         }
-                        scheduleList.set (idleIndex, tasks[i]);
-                        idleIndexList.remove (idleIndexList.indexOf (idleIndex));
+                        scheduleList.set (idleIndex, tasks[i]); // Replace "I" with task
+                        idleIndexList.remove (idleIndexList.indexOf (idleIndex)); // Remove the entry from Idle Index as we utilized that place.
                     }
                 }
             }

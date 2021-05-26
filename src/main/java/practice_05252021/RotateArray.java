@@ -32,10 +32,26 @@ public class RotateArray {
         }
         a[0]=last;
     }
+
+  private void rr(int[] nums, int k){
+        int j = 1,temp = nums[0];
+      for(int i = k+1; i<nums.length;i++){
+          nums[i] = nums[j];
+          j++;
+      }
+      nums[k] = temp;
+      for(int m = 0; m<k;m++){
+          nums[m] =  nums[j];
+      }
+    }
+
+
+
     public static void main(String[] args) {
         int[] a = {1,2,3,4,5,6,7};
         RotateArray rotate = new RotateArray();
-        rotate.rotate (a,3);
+          rotate.rotate (a,3);
+       // rotate.rr (a,3);
         for(Integer num:a) {
             System.out.println (num);
         }
