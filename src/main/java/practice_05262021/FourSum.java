@@ -43,7 +43,7 @@ public class FourSum {
                    k++;
                    l--;
                }
-               else if(sum>0) l--;
+               else if(sum>target) l--;
                else j++;k++;
            }
         }
