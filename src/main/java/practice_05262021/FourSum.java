@@ -25,39 +25,39 @@ public class FourSum {
   if sum >0,  means we need  less number to get 0 so do l--, this is where sorted array helps
 
      */
-    private List<List<Integer>> sum(int[] nums,int target){
+    private List<List<Integer>> sum(int[] nums, int target) {
         Set<List<Integer>> result = new HashSet<> ();
-        Arrays.sort(nums);
-        for(int i = 0; i< nums.length-2; i++){
-           int j = i+1, k = j+1, l = nums.length-1;
-           while(j<k && k<l){
-               List<Integer> quat = new ArrayList<>();
-               int sum = nums[i] + nums[j] + nums[k]+nums[l];
-               if( sum == target){
-                   quat.add(nums[i]);
-                   quat.add(nums[j]);
-                   quat.add(nums[k]);
-                   quat.add(nums[l]);
-                   result.add(quat);
-                   j++;
-                   k++;
-                   l--;
-               }
-               else if(sum>target) l--;
-               else j++;k++;
-           }
+        Arrays.sort (nums);
+        int size = nums.length;
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = i + 1; j < size; j++) {
+                int k = j + 1, l = size - 1;
+                while (k < l) {
+                    List<Integer> quat = new ArrayList<> ();
+                    int sum = nums[i] + nums[j] + nums[k] + nums[l];
+                    if (sum == target) {
+                        quat.add (nums[i]);
+                        quat.add (nums[j]);
+                        quat.add (nums[k]);
+                        quat.add (nums[l]);
+                        result.add (quat);
+                        k++;
+                    } else if (sum > target) l--;
+                    else  k++;
+                }
+            }
         }
 
 
-        return new ArrayList<>(result);
+            return new ArrayList<> (result);
+        }
+
+
+        public static void main (String[]args){
+            int[] a = {1, 0, -1, 0, -2, 2};
+            FourSum fourSum = new FourSum ();
+            List<List<Integer>> sum0Lists = fourSum.sum (a, 0);
+            System.out.println (sum0Lists);
+        }
+
     }
-
-
-    public static void main(String[] args) {
-        int[] a = {1,0,-1,0,-2,2};
-        FourSum fourSum = new FourSum();
-        List<List<Integer>> sum0Lists = fourSum.sum (a,0);
-        System.out.println (sum0Lists);
-    }
-
-}
