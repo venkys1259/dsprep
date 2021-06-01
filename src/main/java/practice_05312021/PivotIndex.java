@@ -35,7 +35,7 @@ public class PivotIndex {
         for(Integer i:a){
             totalSum = totalSum+i;
         }
-        for(int i = 0; i<a.length-1;i++){
+        for(int i = 0; i<a.length;i++){
           difference = totalSum-sumSoFar-a[i];// important step
           if(difference == sumSoFar){
               return  i;
