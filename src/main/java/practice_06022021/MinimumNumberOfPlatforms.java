@@ -36,7 +36,10 @@ public class MinimumNumberOfPlatforms {
     }
     public static void main(String[] args) {
         MinimumNumberOfPlatforms minimumNumberOfPlatforms = new MinimumNumberOfPlatforms();
-        int a[] = {900, 940, 950, 1100, 1500, 1800}, b[] = {910, 1200, 1120, 1130, 1900, 2000};
-        System.out.println (minimumNumberOfPlatforms.minNumberOfPlatsForms(a,b));
+     //   int a[] = {900, 940, 950, 1100, 1500, 1800}, b[] = {910, 1200, 1120, 1130, 1900, 2000};
+      //  int a[] = {900,940},b[] ={910,1200};
+      // int a[] = { 200, 210, 300, 320, 350, 500},b[]={ 230, 340, 320, 430, 400, 520};
+        int a[] = { 910, 920, 930, 1200,1225,1238,1241},b[]={ 1100, 1100, 1100, 1230,1235,1240,1245};
+        System.out.println ("MinPlatForms:" +minimumNumberOfPlatforms.minNumberOfPlatsForms(a,b));
     }
 }
