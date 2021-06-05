@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 public class MinimumSizeSubArraySum {
     /*
-    Approach:
+    Approach: Using Prefix Sum and Hashmap
     1) Compute prefix sum by including the ith element
     2) Maintain a hash map with key as prefix Sum and value as index
     3) If difference between prefixSum and target element exists in map, means there are numbers exists
@@ -54,9 +54,36 @@ public class MinimumSizeSubArraySum {
         return minSize;
     }
 
+    /*
+    * Approach: maintain 2 pointer i and j
+    * loop through array with pointer j and once sum is more than or equal target element, mark the size of the sub array as minimum size
+    * if sum is more than target, minus the first element from sub array and perform above step
+    *
+    * */
+    private int minimum(int[] a, int target){
+        int minSize = 0,previousMinSize=0, i = -1, j=0 , sum = 0;
+        for(j=0;j<a.length;j++){
+            sum = sum+a[j];
+            while(sum >= target){
+                if(sum == target){ // record the sub array size whose sum is K
+                    minSize = j-i+1;
+                    if(minSize <= previousMinSize){
+                        previousMinSize = minSize;
+                    }
+                }
+                    i++;
+                    sum = sum - a[i];
+         }
+        }
+        return minSize;
+    }
+
+
+
     public static void main(String[] args) {
         MinimumSizeSubArraySum minSize = new MinimumSizeSubArraySum();
         int[] a = {2,3,1,2,4,3};
-        System.out.println (minSize.minimumSize(a,7));
+    //    System.out.println (minSize.minimumSize(a,7));
+        System.out.println (minSize.minimum(a,7));
     }
 }
