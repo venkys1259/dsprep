@@ -33,38 +33,44 @@ piles.length <= h <= 109
 public class KokoEatingBananas {
     /*
     Approach:
-    1. sort the array
-    2. left = 0, right = length-1, mid = (l+r)/2
-    3. we assume mid point as minimum number of bananas that koko can eat in an hour
-    4. calculate the speed for the above mid point
-    5. if the resultant speed is greater than given speed (h), proceed to right of the array else left.
+    1. Assume koko can eat atleast 1 banana per hour and atMax  as maximum number of bananas in all the piles
+    so, left = 1, right = maximum of given array, mid = (l+r)/2
+    2. we do binary search here with  mid point as minimum number of bananas that koko can eat in an hour
+       and calculate the speed for the mid point.
+    3.if koko takes less than or equal time than h means
+       we need to try in the lower bound for optimization --> right = mid-1
+       if koko takes more time, then we will try with upper bound --> mid+1.
      */
 
     private int minEatingSpeed(int[] piles, int h){
-        Arrays.sort(piles);
-        int left = 0, right = piles.length-1,calculatedSpeed=0;
+        int left = 1, right = Arrays.stream(piles).max().getAsInt();
         while(left <= right) {
-            calculatedSpeed = 0;
             int mid =  left + (right-left)/2;
-            int minBananasEatenByKoko = piles[mid];
-            for (int i = 0; i < piles.length; i++) {
-                if (piles[i] < minBananasEatenByKoko) { // if the number of bananas are less in that peel, then take 1 hour
-                    calculatedSpeed = calculatedSpeed + 1;
-                } else {
-                    // if the peel has more bananas than minBananasEatenByKoko, hours will be Math.ceil(piles[i]/min);
-                    calculatedSpeed = calculatedSpeed + (int) (Math.ceil((double) piles[i] / minBananasEatenByKoko));
-                }
-            }
-            if(calculatedSpeed == h ){
-                return  piles[mid];
-            }
-            else if(calculatedSpeed > h ){
-                left = mid+1;
-            }else{
+            boolean canKokoEatInTime = canEatInTime (piles, mid, h);
+            if(canKokoEatInTime){
                 right = mid-1;
+            }else{
+                left= mid+1;
             }
         }
-              return  calculatedSpeed;
+              return  left;
+    }
+
+    /*
+       we calculate how many hours koko is taking to eat bananas for given speed ( k)
+       if koko takes less number of hours than h return true
+       else return false
+     */
+    private boolean canEatInTime(int[] piles,int k , int h){
+        int hoursTakenToEat = 0;
+        for (int i = 0; i < piles.length; i++) {
+            if (piles[i] < k) {
+                hoursTakenToEat = hoursTakenToEat + 1;
+            } else {
+                hoursTakenToEat = hoursTakenToEat + (int) (Math.ceil((double) piles[i] / k));
+            }
+        }
+       return hoursTakenToEat <= h ? true:false;
     }
 
 
