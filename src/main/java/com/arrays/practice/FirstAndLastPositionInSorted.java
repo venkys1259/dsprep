@@ -32,6 +32,10 @@ nums is a non-decreasing array.
 public class FirstAndLastPositionInSorted {
     /*
     Binary Search Approach
+    1. Check if the target is there in left part of the array/right part
+    2. Once element is found, do binary search on left side again to find first occurrence
+    and binary search on right side to find last occurrence
+
      */
     private int[] searchRange(int[] nums, int target){
         int[] result = {-1,-1};
@@ -56,35 +60,31 @@ public class FirstAndLastPositionInSorted {
     }
 
 
-
+   // Binary search on Left Part of the array
     private int binarySearchLeftSide(int left, int right,int[] nums,int target){
         while(left <= right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
+            if (nums[mid] == target || nums[mid] > target) {
                 right = mid - 1;
                 }
-            if(nums[mid] > target){
-                right = mid-1;
-            }if(nums[mid] < target){
+           if(nums[mid] < target){
                 left = mid+1;
             }
         }
-            return left;
+            return left;// we are returning left to give first occurrence.
         }
-
+    // Binary search on Right Part of the array
     private int binarySearchRightSide(int left, int right,int[] nums,int target){
         while(left <= right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
+            if (nums[mid] == target || nums[mid] < target) {
                 left = mid+1;
             }
-            if(nums[mid] < target){
-                left = mid+1;
-            } if(nums[mid] > target){
+           if(nums[mid] > target){
                 right = mid-1;
             }
         }
-        return right;
+        return right;// we are returning right to give last occurrence.
     }
 
 
@@ -133,7 +133,7 @@ public class FirstAndLastPositionInSorted {
 
     public static void main(String[] args) {
         FirstAndLastPositionInSorted sorted = new FirstAndLastPositionInSorted();
-        int[] a = {5,7,7,8,8,10};
+        int[] a = {5,7,7,8,9,10};
       //  System.out.println (Arrays.toString(sorted.search(a,8)));
         System.out.println (Arrays.toString(sorted.searchRange (a,8)));
     }

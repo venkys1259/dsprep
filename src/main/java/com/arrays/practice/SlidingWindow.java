@@ -101,6 +101,5 @@ can be removed from deque.
     public static void main(String[] args) {
         SlidingWindow slidingWindow = new SlidingWindow();
         int[] a = {1,3,-1,-3,5,3,6,7};
-        System.out.println (Arrays.toString(slidingWindow.maxSlidingWindow (a,3)));
     }
 }
