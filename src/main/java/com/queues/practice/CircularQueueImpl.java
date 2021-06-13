@@ -45,7 +45,7 @@ public class CircularQueueImpl {
     private void display(){
         System.out.println ("Elements in Queue::");
         if(front== 0 && rear == 0){// queue has only 1 element
-            System.out.println ();
+            System.out.println (data[0]);
         }
         else if(rear > front) { // still circular concept is not fulfilled
             for (int i = front; i < rear; i++) {
