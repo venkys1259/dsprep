@@ -52,30 +52,29 @@ public class InvalidTransactions {
         int i = 0, j = 0;
         List<String> invalidTransactions = new ArrayList<>();
         for(String trans:transactions){
-        String[] transaction = trans.split (",");
-        names[i] = transaction[0];
-        time[i]  = Integer.valueOf (transaction[1]);
-        amount[i] = Integer.valueOf (transaction[2]);
-        city[i] = transaction[3];
-        if(amount[i] > 1000){
-            invalidTransactions.add(trans);
-        }
+            String[] transaction = trans.split (",");
+            names[i] = transaction[0];
+            time[i]  = Integer.valueOf (transaction[1]);
+            amount[i] = Integer.valueOf (transaction[2]);
+            city[i] = transaction[3];
+            if(amount[i] > 1000){
+                invalidTransactions.add(trans);
+            }
             i++;
         }
         for(i = 0; i<names.length-1;i++){
-            j = i+1;
-        //   for(int j = i+1; j<names.length;j++){
-               if(names[i].equals(names[j])){
-                   if(!city[i].equals(city[j]) && Math.abs(time[j]-time[i]) < 60){
-                       if(!invalidTransactions.contains (transactions[i])) {
-                           invalidTransactions.add (transactions[i]);
-                       }
-                       if(!invalidTransactions.contains (transactions[j])) {
-                           invalidTransactions.add (transactions[j]);
-                       }
-                   }
-               }
-           //}
+            for(j = i+1; j<names.length;j++){
+                if(names[i].equals(names[j])){
+                    if(!city[i].equals(city[j]) && Math.abs(time[j]-time[i]) <= 60){
+                        if(!invalidTransactions.contains (transactions[i])) {
+                            invalidTransactions.add (transactions[i]);
+                        }
+                        if(!invalidTransactions.contains (transactions[j])) {
+                            invalidTransactions.add (transactions[j]);
+                        }
+                    }
+                }
+            }
         }
         return  invalidTransactions;
     }
