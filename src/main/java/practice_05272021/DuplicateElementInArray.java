@@ -38,15 +38,14 @@ public class DuplicateElementInArray {
 
     private List<Integer> findDups(int[] nums) {
         List<Integer> dupList = new ArrayList<> ();
-        int index = 0;
-       for(int i = 0; i<nums.length;i++){
-           index = Math.abs(nums[i]) -1 ;
-           if(nums[index] < 0){
-               dupList.add(nums[i]);
-           }else{
-               nums[index] = -nums[index];
-           }
-       }
+        int position = 0;
+        for(int i = 0; i<nums.length;i++){
+            position = Math.abs(nums[i])-1;
+            if(nums[position] <0 ){
+                dupList.add(position+1);
+            }
+            nums[position] = -nums[position];
+        }
         return dupList;
     }
 
