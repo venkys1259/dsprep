@@ -1,7 +1,9 @@
 package com.arrays.practice;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /*
 https://leetcode.com/problems/invalid-transactions/
@@ -49,7 +51,7 @@ public class InvalidTransactions {
         Integer[] time = new Integer[transactions.length];
         Integer[] amount = new Integer[transactions.length];
         String[] city = new String[transactions.length];
-        int i = 0, j = 0;
+        int i = 0, j;
         List<String> invalidTransactions = new ArrayList<>();
         for(String trans:transactions){
             String[] transaction = trans.split (",");
@@ -57,29 +59,38 @@ public class InvalidTransactions {
             time[i]  = Integer.valueOf (transaction[1]);
             amount[i] = Integer.valueOf (transaction[2]);
             city[i] = transaction[3];
-            if(amount[i] > 1000){
-                invalidTransactions.add(trans);
-            }
             i++;
+        }
+        boolean[] isInvalid = new boolean[transactions.length];
+        if(amount[0] > 1000){ // Only for first transaction
+            invalidTransactions.add(transactions[0]);
+            isInvalid[0] = true;
         }
         for(i = 0; i<names.length-1;i++){
             for(j = i+1; j<names.length;j++){
+                if(amount[j] > 1000 && !isInvalid[j]){
+                    invalidTransactions.add(transactions[j]);
+                    isInvalid[j] = true;
+                }
                 if(names[i].equals(names[j])){
                     if(!city[i].equals(city[j]) && Math.abs(time[j]-time[i]) <= 60){
-                        if(!invalidTransactions.contains (transactions[i])) {
+                        if(!isInvalid[i]) {
                             invalidTransactions.add (transactions[i]);
+                            isInvalid[i] = true;
                         }
-                        if(!invalidTransactions.contains (transactions[j])) {
-                            invalidTransactions.add (transactions[j]);
+                            if (!isInvalid[j]) {
+                                invalidTransactions.add (transactions[j]);
+                                isInvalid[j] = true;
+                            }
                         }
-                    }
                 }
             }
         }
         return  invalidTransactions;
     }
     public static void main(String[] args) {
-   String[] transactions = {"alice,20,800,mtv","alice,50,100,beijing"};
-   System.out.println (InvalidTransactions.invalidTransactions (transactions));
+   String[] transactions = {"alice,20,800,mtv","bob,50,1200,mtv","alice,20,800,mtv","alice,50,1200,mtv","alice,20,800,mtv","alice,50,100,beijing"};
+  System.out.println (InvalidTransactions.invalidTransactions (transactions));
+
     }
 }
