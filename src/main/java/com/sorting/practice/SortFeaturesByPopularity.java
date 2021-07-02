@@ -58,10 +58,47 @@ public class SortFeaturesByPopularity {
         return  m.find();
     }
 
+    /*
+    Tried bit of optimization
+    Build a hash map with key as feature and number of times feature name exists in response as value.
+    iterate through response and check if feature word exists in response
+    if yes increment the counter
+    Then sort the hash map with values in decreasing order.
+     */
+    private String[] sortByPop(String[] features, String[] responses){
+        List<String> featureList = Arrays.asList(features);
+        Map<String, Integer> featureMap = new HashMap<>();
+        List<String> readWords = new ArrayList<>(); // to keep track of duplicate response such as same feature name exists multiple times
+        for(int i = 0; i<responses.length;i++){
+            String[] words = responses[i].split ("\\s");
+            for(String word: words){
+                if(featureList.contains(word)){
+                        if(!readWords.contains(word)) {
+                            if(featureMap.containsKey(word)) {
+                                featureMap.put(word, featureMap.get(word)+1);
+                            }
+                            else{
+                                featureMap.put(word,1);
+                            }
+                            readWords.add(word);
+                        }
+                }
+            }
+            readWords.clear();
+        }
+        featureMap = featureMap.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1,
+                        LinkedHashMap::new)); // sort featureMap by values
+
+        return  featureMap.keySet().stream().toArray(String[] :: new);
+
+    }
+
     public static void main(String[] args) {
       String[] features = {"cooler","lock","touch"};
       String[] responses = {"i like cooler cooler","lock touch cool","locker like touch"};
       SortFeaturesByPopularity sort =new SortFeaturesByPopularity();
       System.out.println(Arrays.toString(sort.sortByPopularity (features,responses)));
+      System.out.println(Arrays.toString(sort.sortByPop (features,responses)));
     }
 }
