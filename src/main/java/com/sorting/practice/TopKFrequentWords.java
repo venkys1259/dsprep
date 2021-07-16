@@ -3,6 +3,9 @@ package com.sorting.practice;
 import java.util.*;
 
 public class TopKFrequentWords {
+    /*
+    FrequencyComparator compares first by values, if the values are equal then comparison happens by keys
+     */
     class FrequencyComparator implements Comparator<Map.Entry<String,Integer>>{
         @Override
         public int compare(Map.Entry<String, Integer> e1, Map.Entry<String, Integer> e2) {
@@ -22,6 +25,7 @@ public class TopKFrequentWords {
         for(int i = 0; i< words.length;i++){
             freqMap.put (words[i], freqMap.getOrDefault (words[i],0)+1);
         }
+        // need to arrange based on frequency and if frequency is same arrange them as per alphabetical order
         PriorityQueue<Map.Entry<String,Integer>> heap = new PriorityQueue<> (new FrequencyComparator());
         for(Map.Entry<String,Integer> entry : freqMap.entrySet ()){
             heap.add (entry);
