@@ -17,10 +17,6 @@ public class KStrongestValues {
        }
        int i = 0, j = 0, l = n-1;
        while(i<n){
-           if(k == 0){
-               return  result;
-           }
-           else  {
                if (Math.abs (arr[i] - median) > Math.abs (arr[l] - median)) {
                    result[j] = arr[i];
                    i++;
@@ -30,7 +26,9 @@ public class KStrongestValues {
                }
                k--;
                j++;
-           }
+               if(k == 0){
+                   return  result;
+               }
        }
        return  result;
     }
