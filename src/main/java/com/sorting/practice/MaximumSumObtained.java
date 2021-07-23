@@ -28,6 +28,5 @@ public class MaximumSumObtained {
         int[] nums = {1,2,3,4,5,10};
         MaximumSumObtained max = new MaximumSumObtained();
         System.out.println (max.maxSumRangeQuery (nums,requests));
-        System.out.println ( Math.pow (10,9)+7);
     }
 }
