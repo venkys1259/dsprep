@@ -34,6 +34,22 @@ public class ReverseLinkedList {
         }
         return prev;
     }
+    /* Recursive way of Reversing a linked list*/
+    public ListNode reverseList2(ListNode currentNode) {
+        if(currentNode == null || currentNode.next == null)
+            return currentNode;
+        ListNode temp = reverseList2 (currentNode.next);
+        currentNode.next.next = currentNode;
+        currentNode.next = null;
+        return temp;
+    }
+
+    public void print(ListNode node){
+        while(node!=null) {
+            System.out.println (node);
+            node = node.next;
+        }
+    }
 
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
@@ -43,9 +59,14 @@ public class ReverseLinkedList {
         head.next.next.next.next = new ListNode(5);
         ReverseLinkedList rll = new ReverseLinkedList ();
         ListNode reversed =  rll.reverseList(head);
-        while(reversed!=null) {
-            System.out.println (reversed);
-            reversed = reversed.next;
-        }
+        rll.print(reversed);
+        System.out.println ("==========Recursive way==============");
+        head = new ListNode(5);
+        head.next = new ListNode(6);
+        head.next.next = new ListNode (7);
+        head.next.next.next = new ListNode (8);
+        head.next.next.next.next = new ListNode(9);
+        ListNode reversed2 =  rll.reverseList2(head);
+        rll.print(reversed2);
     }
 }
