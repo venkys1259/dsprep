@@ -1,5 +1,7 @@
 package com.trees;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 class Node{
@@ -12,7 +14,7 @@ class Node{
 }
 public class TreeTraversals {
     /* InOrder: Left Node Right */
-    private void inorder(Node node){
+    public void inorder(Node node){
             if(node!=null){
                 inorder (node.left);
                 System.out.println (node.data);
@@ -20,7 +22,7 @@ public class TreeTraversals {
             }
     }
     /*InOrder: Iterative Way : Left Node Right */
-    private void inorderIterative(Node node){
+    public void inorderIterative(Node node){
         if(node == null) return;
         Stack<Node> stack = new Stack<>();
         Node current = node;
@@ -36,7 +38,7 @@ public class TreeTraversals {
     }
 
     /*PreOrder: Node Left Right */
-    private void preorder(Node node){
+    public void preorder(Node node){
         if(node!=null){
             System.out.println (node.data);
             preorder (node.left);
@@ -44,7 +46,7 @@ public class TreeTraversals {
         }
     }
     /*PreOrder: Iterative Way Node Left Right */
-    private void preorderIterative(Node node){
+    public void preorderIterative(Node node){
         Stack<Node> stack = new Stack<> ();
         Node current = node;
         while(current!=null || !stack.isEmpty ()){
@@ -58,7 +60,7 @@ public class TreeTraversals {
         }
     }
     /*PostOrder: Left Right Node */
-    private void postorder(Node node){
+    public void postorder(Node node){
         if(node!=null) {
             postorder (node.left);
             postorder (node.right);
@@ -79,7 +81,22 @@ public class TreeTraversals {
             current = current.right;
         }
     }*/
-
+    /* level order: Breadth first */
+    public void levelOrder(Node node) {
+        System.out.println ("Level Order Traversal:::");
+        Queue<Node> queue = new LinkedList<> ();
+        queue.add (node);
+        while (!queue.isEmpty ()) {
+            Node temp = queue.poll ();
+            System.out.println (temp.data);
+            if (temp.left != null) {
+                queue.add (temp.left);
+            }
+            if (temp.right != null) {
+                queue.add (temp.right);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         Node node = new Node (25);
@@ -99,5 +116,6 @@ public class TreeTraversals {
         traversals.preorderIterative (node);
         System.out.println ("Postorder:::::" );
         traversals.postorder (node);
+        traversals.levelOrder (node);
     }
 }
