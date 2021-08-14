@@ -5,15 +5,15 @@ import java.util.List;
 
 /* https://leetcode.com/problems/path-sum-ii/ */
 public class PathSum2 {
-    List<List<Integer>> nodesList = new ArrayList<> ();
     private List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> nodesList = new ArrayList<> ();
         if(root == null) return nodesList;
         List<Integer> nodes = new ArrayList<> ();
         nodes.add (root.val);
-        pathSum(root,targetSum,root.val,nodes);
+        pathSum(root,targetSum,root.val,nodes,nodesList);
         return nodesList;
     }
-    private void pathSum(TreeNode root, int targetSum,int sum,List<Integer> nodes) {
+    private void pathSum(TreeNode root, int targetSum,int sum,List<Integer> nodes,List<List<Integer>> nodesList) {
      if (root.left == null && root.right == null && sum == targetSum) {
          // copy nodes list to temp result, since we will be using nodes further also.
            List<Integer> resultNodes = new ArrayList<> ();
@@ -26,12 +26,12 @@ public class PathSum2 {
         else {
           if(root.left!=null) {
               nodes.add(root.left.val);
-              pathSum (root.left, targetSum, root.left.val + sum,nodes);
+              pathSum (root.left, targetSum, root.left.val + sum,nodes,nodesList);
               nodes.remove (nodes.size ()-1);
           }
             if(root.right!=null) {
                 nodes.add(root.right.val);
-                pathSum (root.right, targetSum, root.right.val + sum,nodes);
+                pathSum (root.right, targetSum, root.right.val + sum,nodes,nodesList);
                 nodes.remove (nodes.size ()-1);
             }
          }
