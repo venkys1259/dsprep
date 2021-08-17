@@ -7,39 +7,41 @@ import java.util.Queue;
 public class MaximumLevelSum {
     int maxLevel = 1,sum = 0;
     public int maxLevelSum(TreeNode root) {
-    if(root == null) return 0;
-    if(root.left == null && root.right == null)
-        return 1;
-    else {
-        Queue<TreeNode> queue = new LinkedList<> ();
-        queue.add (root);
-        TreeNode dummy = new TreeNode (Integer.MAX_VALUE);
-        queue.add(dummy);
-        int level = 1, prevSum = Integer.MIN_VALUE;
-        while (!queue.isEmpty ()) {
-            TreeNode temp = queue.poll ();
-            if(temp == dummy){
-                if(sum>prevSum) {
-                    maxLevel =level;
+        if(root == null) return 0;
+        if(root.left == null && root.right == null)
+            return 1;
+        else {
+            Queue<TreeNode> queue = new LinkedList<> ();
+            queue.add (root);
+            TreeNode dummy = new TreeNode (Integer.MAX_VALUE);
+            queue.add(dummy);
+            int level = 1, prevSum = Integer.MIN_VALUE;
+            while (!queue.isEmpty ()) {
+                TreeNode temp = queue.poll ();
+                if(temp == dummy){
+                    if(sum>prevSum) {
+                        maxLevel =level;
+                        prevSum = sum;
+                        System.out.println("MaxLevel:"+level+" " +"sum: "+sum + "prevSum:" +prevSum);
+                    }
+                    System.out.println("Level:"+level+" " +"sum: "+sum + "prevSum:" +prevSum);
+                    if(queue.isEmpty ()) break;
+                    queue.add(dummy);
+                    level++;
+                    sum = 0;
+                    continue;
+                }else{
+                    sum = sum +temp.val;
                 }
-                if(queue.isEmpty ()) break;
-                queue.add(dummy);
-                level++;
-                prevSum = sum;
-                sum = 0;
-                continue;
-            }else{
-                sum = sum +temp.val;
+                if(temp.left != null){
+                    queue.add (temp.left);
+                }
+                if(temp.right != null){
+                    queue.add(temp.right);
+                }
             }
-            if(temp.left != null){
-                queue.add (temp.left);
-            }
-           if(temp.right != null){
-               queue.add(temp.right);
-           }
+            return maxLevel;
         }
-        return maxLevel;
-    }
     }
     private int maxLevelSum(TreeNode root,int sum,int level){
         if(root!=null && (root.left!=null || root.right!=null)) {
