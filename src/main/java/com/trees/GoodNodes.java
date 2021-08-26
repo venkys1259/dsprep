@@ -11,7 +11,6 @@ public class GoodNodes {
      goodNodes(root,nodesList,goodNodesInPathList);
      return  nodesList.size ();
     }
-
     public void goodNodes(TreeNode root, List<TreeNode> goodNodesList,List<TreeNode> goodNodesInPathList){
         if(root!=null){
             if(isGoodNode(root, goodNodesInPathList)) {
