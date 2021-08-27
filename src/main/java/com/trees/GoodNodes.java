@@ -1,16 +1,24 @@
 package com.trees;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /* https://leetcode.com/problems/count-good-nodes-in-binary-tree/ */
 public class GoodNodes {
     public int goodNodes(TreeNode root) {
-     List<TreeNode> nodesList = new ArrayList<> ();
-     List<TreeNode> goodNodesInPathList = new ArrayList<> ();
-     goodNodes(root,nodesList,goodNodesInPathList);
-     return  nodesList.size ();
+        return goodNodes(root,Integer.MIN_VALUE);
     }
+
+    public int goodNodes(TreeNode root,Integer max){
+        int goodNode = 0;
+        if (root == null) return goodNode;
+        //check if current node is a good node
+        if (root.val >= max) {
+            goodNode++;
+        }
+        max = Math.max(root.val, max);
+        return goodNode + goodNodes(root.left, max) + goodNodes(root.right, max);
+    }
+
     public void goodNodes(TreeNode root, List<TreeNode> goodNodesList,List<TreeNode> goodNodesInPathList){
         if(root!=null){
             if(isGoodNode(root, goodNodesInPathList)) {
