@@ -25,6 +25,6 @@ public class ValidPalindromeII {
     public static void main(String[] args) {
         ValidPalindromeII validPal = new ValidPalindromeII ();
         String input = "abc";
-        System.out.println (validPal.isValidPalindrome (input,0,input.length ()-1,true));
+        System.out.println (validPal.validPalindrome (input));
     }
 }
