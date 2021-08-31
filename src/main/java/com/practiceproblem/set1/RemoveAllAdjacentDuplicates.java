@@ -1,4 +1,4 @@
-package com.test;
+package com.practiceproblem.set1;
 
 import java.util.ArrayList;
 import java.util.List;

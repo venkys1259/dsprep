@@ -1,4 +1,4 @@
-package com.test;
+package com.practiceproblem.set1;
 
 /*https://leetcode.com/problems/merge-intervals/ */
 
