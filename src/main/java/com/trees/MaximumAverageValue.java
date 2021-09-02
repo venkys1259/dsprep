@@ -7,19 +7,19 @@ public class MaximumAverageValue {
     }
     public double maxAvg(TreeNode root,double max){
         if(root!=null){
-            double left = maxAvg(root.left,max);
-            double right = maxAvg(root.right,max);
+            maxAvg(root.left,max);
+            maxAvg(root.right,max);
             if(root.left == null && root.right == null){
                 max = root.val;
             }
             else if(root.left != null && root.right != null){
-                max = (left+right+ root.val) / 3;
+                max = (root.left.val+root.right.val+ root.val) / 3;
             }
             else if(root.left == null && root.right!=null){
-                max = (right+root.val)/2;
+                max = (root.right.val+root.val)/2;
             }
             else{
-                max = (left+root.val)/2;
+                max = (root.left.val+root.val)/2;
             }
             currentMax =  Math.max(max,currentMax);
         }
