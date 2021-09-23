@@ -8,7 +8,7 @@ public class RatInMaze {
     int[] pathCol = {1,0};
     public void findPathInMaze(int[][] maze,int[][] solution,int row, int col){
         // Base condition
-        if(row == 3 && col == 3 ){
+        if(row == maze.length-1 && col == maze[0].length-1 ){ // Reached last row and last column of maze
             printSolution (solution);
         }
         else{
@@ -18,7 +18,7 @@ public class RatInMaze {
               if((isValidMove(maze,newRow,newCol))){
                   solution[newRow][newCol] = 1;
                   findPathInMaze (maze,solution,newRow,newCol);
-                  solution[newRow][newCol] = 0;
+                  solution[newRow][newCol] = 0; // why ?
               }
             }
         }
@@ -26,7 +26,7 @@ public class RatInMaze {
     }
 
     private boolean isValidMove(int[][] maze, int newRow, int newCol) {
-        if((newRow >=0 && newRow < 4  && newCol >= 0 && newCol < 4) &&
+        if((newRow >=0 && newRow < maze.length  && newCol >= 0 && newCol < maze[0].length) &&
             maze[newRow][newCol] == 1){
             return true;
         }
