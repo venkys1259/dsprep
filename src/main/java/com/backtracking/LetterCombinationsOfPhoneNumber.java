@@ -16,7 +16,7 @@ public class LetterCombinationsOfPhoneNumber {
     }
 
     private void computeLetterCombinations(List<String> result,String digits, String currentCombination,int index, String[]  mapping) {
-      if(index == digits.length ()){
+      if(currentCombination.length () == digits.length ()){
           result.add(currentCombination);
           return ;
       }
